@@ -9,7 +9,7 @@ const int echoPinHor = 9;
 
 //Algemeen
 int num;
-float afstandNorm = 88.5;         // Afstand naar ondergrond op een vlak terrein
+float afstandNorm = 67;         // Afstand naar ondergrond op een vlak terrein DEFAULT = 88.5
 float remTijd = 0.1*1000;         // Activatieduur voor de motoren
 float wachtTijd = 2000;           // Duratie geactiveerde remmen
 bool geremd = false;              // Status van remmen 
@@ -51,30 +51,18 @@ void setup() {
   Serial.begin(9600);                 // stel de seriële monitor in (plotten) 
   pinMode(trigPin, OUTPUT);           // stel de trigger pin in als uitvoer
   pinMode(echoPin, INPUT);            // stel de echo pin in als invoer
+  pinMode(trigPinHor, OUTPUT);           // stel de trigger pin in als uitvoer
+  pinMode(echoPinHor, INPUT);            // stel de echo pin in als invoer  
   pinMode(ledPin, OUTPUT);
   pinMode(zwaaiPin, OUTPUT);
+  pinMode(pin4, OUTPUT);
+  pinMode(pin5, OUTPUT);
+   
   digitalWrite(zwaaiPin, HIGH); // uit
   digitalWrite(ledPin, HIGH); // aan
 
    
 }
-
-void RemOp()                      //Functie om rem in te drukken
-{
- digitalWrite(pin4, HIGH);
- digitalWrite(pin5, LOW);
-}
-void RemAf()                      //Functie om rem er af te halen
-{
- digitalWrite(pin4, LOW);
- digitalWrite(pin5, HIGH);
-}
-void RemUit ()                    //Functie om de rem stil te zetten
-{
-digitalWrite(pin4, LOW);
-digitalWrite(pin5, LOW);
-}
-
 
 
 void loop() {
@@ -167,15 +155,23 @@ void loop() {
     
     digitalWrite(zwaaiPin, LOW);        // Zwaailamp AAN
     
-    RemOp;                                                                        
-    delay(remTijd);                     // Aantal seconden dat de motor draait
-    RemUit;
+    digitalWrite(pin4, HIGH);
+    digitalWrite(pin5, LOW);                                                                    
+    
+    delay(500);                         // Aantal seconden dat de motor draait
+    
+    digitalWrite(pin4, LOW);
+    digitalWrite(pin5, LOW);          
     
     delay(wachtTijd);                   // Wachttijd totdat de rem er af wordt gehaald
     
-    RemAf;                              
-    delay(remTijd);                     // Aantal seconden dat de motor draait
-    RemUit;    
+    digitalWrite(pin4, LOW);
+    digitalWrite(pin5, HIGH);                                
+    
+    delay(80);                          // Aantal seconden dat de motor draait
+
+    digitalWrite(pin4, LOW);
+    digitalWrite(pin5, LOW);      
 
  
     digitalWrite(zwaaiPin, HIGH);       // Zwaailamp UIT
@@ -194,15 +190,23 @@ void loop() {
     
     digitalWrite(zwaaiPin, LOW);        // Zwaailamp AAN
     
-    RemOp;                                                                        
-    delay(remTijd);                     // Aantal seconden dat de motor draait
-    RemUit;
+    digitalWrite(pin4, HIGH);
+    digitalWrite(pin5, LOW);                                                                    
+    
+    delay(500);                         // Aantal seconden dat de motor draait
+    
+    digitalWrite(pin4, LOW);
+    digitalWrite(pin5, LOW);          
     
     delay(wachtTijd);                   // Wachttijd totdat de rem er af wordt gehaald
     
-    RemAf;                              
-    delay(remTijd);                     // Aantal seconden dat de motor draait
-    RemUit;    
+    digitalWrite(pin4, LOW);
+    digitalWrite(pin5, HIGH);                                
+    
+    delay(80);                          // Aantal seconden dat de motor draait
+
+    digitalWrite(pin4, LOW);
+    digitalWrite(pin5, LOW);      
 
  
     digitalWrite(zwaaiPin, HIGH);       // Zwaailamp UIT
